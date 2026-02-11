@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Age Calculator</title>
+<title>Advanced Age Calculator</title>
 
 <style>
 body{
@@ -21,7 +21,7 @@ body{
     border-radius:15px;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
     text-align:center;
-    width:350px;
+    width:360px;
 }
 h2{
     margin-bottom:20px;
@@ -46,8 +46,8 @@ button:hover{
 }
 .result{
     margin-top:20px;
+    font-size:16px;
     font-weight:bold;
-    font-size:18px;
 }
 </style>
 </head>
@@ -55,9 +55,9 @@ button:hover{
 <body>
 
 <div class="container">
-    <h2>Age Calculator</h2>
+    <h2>Advanced Age Calculator</h2>
     <input type="date" id="dob">
-    <button onclick="calculateAge()">Calculate Age</button>
+    <button onclick="calculateAge()">Calculate</button>
     <div class="result" id="result"></div>
 </div>
 
@@ -87,8 +87,22 @@ function calculateAge(){
         months += 12;
     }
 
+    // Total days lived
+    let timeDiff = today - birthDate;
+    let totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    // Next Birthday Countdown
+    let nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+    if(nextBirthday < today){
+        nextBirthday.setFullYear(today.getFullYear() + 1);
+    }
+    let birthdayDiff = nextBirthday - today;
+    let daysLeft = Math.ceil(birthdayDiff / (1000 * 60 * 60 * 24));
+
     document.getElementById("result").innerHTML =
-        "You are " + years + " Years, " + months + " Months, " + days + " Days old.";
+        "🎉 You are " + years + " Years, " + months + " Months, " + days + " Days old.<br><br>" +
+        "📅 Total Days Lived: " + totalDays + " days<br><br>" +
+        "🎂 Next Birthday in: " + daysLeft + " days";
 }
 </script>
 
